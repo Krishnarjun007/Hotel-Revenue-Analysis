@@ -1,4 +1,4 @@
-# Hotel-Revenue-Analysis-Star-Schema
+# Hotel-Revenue-Analysis
 # Hotel Revenue Analysis (2018-2020) - Milestone 1
 
 ## 📌 Project Overview
