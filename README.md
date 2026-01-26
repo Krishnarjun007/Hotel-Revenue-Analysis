@@ -53,8 +53,34 @@ Based on the project hierarchy:
 ---
 
 ## 💻 Technical Implementation (DAX Queries)
+### **I.  Calculated Columns & Logic**
+```
+// 1. Seasonal Classification
+Season = SWITCH( TRUE(), 
+    MONTH(Raw_fact[arrival_date]) IN {12,1,2}, "Winter", 
+    MONTH(Raw_fact[arrival_date]) IN {3,4,5}, "Summer", 
+    MONTH(Raw_fact[arrival_date]) IN {6,7,8}, "Monsoon", 
+    "Autumn" 
+)
 
-### **I. Measures (KPIs & Calculations)**
+// 2. Booking Channel Grouping
+Booking_channel = IF(Raw_fact[distribution_channel] = "Direct", "Direct", "OTA")
+
+// 3. Total Length of Stay
+Total Nights = Raw_fact[stays_in_week_nights] + Raw_fact[stays_in_weekend_nights]
+
+// 4. Spend Type Segmentation
+Spend_Type = IF( Raw_fact[ADR] >= 150, "High Spender", 
+             IF( Raw_fact[ADR] >= 80, "Medium Spender", "Low Spender" ) )
+
+// 5. Guest Type (Custom Column Logic)
+Guest_type = 
+    if [adults] = 1 and [children] = 0 and [babies] = 0 then "Solo" 
+    else if [adults] >= 2 and ([children] > 0 or [babies] > 0) then "Family" 
+    else "Business"
+```
+
+### **II. Measures (KPIs & Calculations)**
 ```dax
 // 1. Total Rooms in Inventory
 Rooms Available = COUNTROWS(Room)
