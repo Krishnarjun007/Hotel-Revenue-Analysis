@@ -1,44 +1,58 @@
 # Hotel-Revenue-Analysis
-# Hotel Revenue Analysis (2018-2020) - Milestone 1
 
 📌 Project Overview
-This project focuses on the transformation and relational modeling of hotel booking and marketing data. The objective of Milestone 1 was to move from raw data extraction to a structured Star Schema, ensuring regional date compatibility and engineering new behavioral features for high-performance reporting.
+This project focuses on the transformation, relational modeling, and advanced visualization of hospitality data. The lifecycle progressed from raw data extraction and Star Schema modeling in Milestone 1 to the development of high-performance industry KPIs and behavioral guest segmentation using DAX in Milestone 2.
 
-🏗️ Data Architecture: The Star Schema
-A Star Schema was implemented to optimize query performance and ensure data integrity. The model separates quantitative metrics (Facts) from descriptive attributes (Dimensions).
+🏗️ Milestone 1: Data Architecture & ETL
+The objective was to move from raw data to a structured Star Schema to optimize query performance and ensure data integrity.
 
-Fact Table
+Data Architecture
+Fact Table (Raw_fact): The central hub containing ADR, Total Revenue, Lead Times, and Calculated Profit.
 
-Raw Fact: The central processing hub containing ADR, Total Revenue, Lead Times, and the engineered Calculated Profit.
+Dimension Tables:
 
-Dimension Tables
+Hotel: Branch-level data (Direct, OTA, Corporate).
 
-hotel: Contains channel-level data (Direct, OTA, Corporate) representing business branches.
+Date: Standardized calendar for time-intelligence analysis.
 
-date: A standardized calendar for time-intelligence analysis, utilizing a numeric date_key.
+Room: Market segments and dynamically assigned room categories.
 
-room: Mapping of market segments and dynamically assigned room categories.
+Customer: Unique guest profiles based on demographics and country.
 
-customer: Unique guest profiles based on demographics and country of origin.
+ETL & Engineering Steps
+Regional Date Parsing: Resolved format conflicts using Locale-based transformations (English-UK).
 
-🛠️ ETL & Data Engineering Steps
-Using the Power Query Editor, the following transformations were performed to prepare the data for analysis:
+Profit Engineering: Created a Calculated_Profit metric (Total_Revenue - Total_Costs).
 
-Data Consolidation & Cleaning
-Regional Date Parsing: Resolved DD/MM/YYYY format conflicts in the 2024 dataset using Locale-based transformation (English-UK).
+Room Categorization: Engineered categories (Standard, Deluxe, Premium) based on ADR thresholds.
 
-Consolidation: Appended historical (2018-2020) and current operational records into a unified master Fact table.
+📊 Milestone 2: Revenue & Occupancy Analytics
+Milestone 2 involved extending the model with complex DAX measures and interactive dashboards to track hospitality KPIs and guest behavior.
 
-Profit Engineering: Calculated a Calculated_Profit metric (Total_Revenue - Total_Costs) to fill reporting gaps.
+Key Performance Indicators (KPIs)
+Occupancy %: Measures the percentage of available rooms sold.
 
-Feature Engineering & Advanced Mapping
-Room Categorization: Engineered a Room Category (Standard, Deluxe, Premium) based on ADR (Average Daily Rate) thresholds to track yield across pricing tiers.
+Average Daily Rate (ADR): Measures the average rental income per occupied room.
 
-Behavioral Segmentation: Developed Booking Duration and Stay Type (Short/Medium/Long) logic to categorize guest stay patterns.
+RevPAR: Revenue per Available Room, assessing the hotel's ability to fill rooms at a specific rate.
 
-Discount Logic: Applied market segment discounts and assigned numeric costs based on meal types (BB, HB, FB, SC).
+Guest Segmentation Logic
+Guest Type: Classified as Solo, Family, or Business based on adult/child counts.
 
-Relational Mapping
-Attribute-Based Merging: Dimension tables were integrated into the Raw Fact table using descriptive attributes (Booking_Channel, Market_Segment) to ensure seamless filtering.
+Stay Type: Categorized into Short, Medium, or Long stays based on total nights.
 
-Customer Integration: A unique customer_id was created in the customer dimension and merged into the Fact table using multi-column joins (Adults, Children, Babies, and Country).
+Spend Type: Segmented into High, Medium, or Low spenders based on ADR thresholds.
+
+Loyalty: Identified by analyzing the frequency of bookings per unique Customer ID.
+
+📂 Repository Structure
+Milestone 1/: Data Architecture, ETL documentation, and initial star schema.
+
+Milestone 2/:
+
+Screenshots/: Final dashboard views (Customer Report, O&R Metrics).
+
+Updated Revenue analysis.pbix: The complete Power BI report.
+
+README.md: Full project documentation.
+
