@@ -134,6 +134,26 @@ During development, specific DAX challenges were addressed to ensure accurate da
 
 ### 1. Global Forecast Logic
 To prevent the forecast card from showing blank values (`--`), a variable-based approach was used to identify the "End of History" across the entire dataset, ignoring local row filters:
+
+### 📂 Repository Structure
+
+Based on the project hierarchy:
+
+* **Milestone 1/**
+    * `Data/` : Raw source files (e.g., Hotel book.csv).
+    * `Documentation/` : Milestone 1 Project Report.
+    * `Images/` : Star Schema and initial trend charts.
+* **Milestone 2/**
+    * `Screenshots/` : Final dashboard views (Customer Report, O&R Metrics).
+    * `Updated Revenue analysis.pbix` : The complete Power BI report.
+* **Milestone 3/**
+    * `Screenshot/` : Latest report views including forecasting trends.
+        * `F & C Report (1).png` : Full Forecasting & Cancellation dashboard.
+        * `F & C Report 2021 Forecast.png` : Filtered view showing 2021 demand predictions.
+    * `Updated Revenue analysis.pbix` : Finalized Power BI file with integrated Prophet forecast data and DAX measures.
+* **LICENSE** : Project licensing information.
+* **README.md** : Full project documentation and technical implementation details.
+* 
 ```dax
 Total Forecasted Bookings = 
 VAR OverallLastDate = CALCULATE( MAX('Date'[Date]), ALL('Date') )
