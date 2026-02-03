@@ -115,3 +115,36 @@ Avg ADR = CALCULATE(
     AVERAGE(Raw_fact[ADR]), 
     FILTER( ALL(Raw_fact), Raw_fact[Customer.1.Customer_id] = MAX(Raw_fact[Customer.1.Customer_id]) ) 
 )
+```
+
+### 🏨 Infosys Springboard Virtual Internship 6.0 | Milestone 3
+
+This repository contains the **Hotel Revenue Analysis and Forecasting** dashboard developed during Milestone 3 of the Infosys Springboard Internship. The project focuses on transforming historical booking data into actionable insights and future demand predictions using **Power BI** and the **Prophet** forecasting model.
+
+## 📊 Dashboard Overview
+The dashboard provides a comprehensive view of hotel performance, tracking key metrics across historical and forecasted timelines.
+
+* **Total Forecasted Bookings**: A global KPI showing predicted future demand beyond the historical data range.
+* **Forecasting Trends**: Area charts showing the evolution of `yhat` (forecast), including upper and lower confidence intervals.
+* **Cancellation Analysis**: Visualizes monthly cancellation trends to assist in revenue protection strategies.
+* **Interactive Slicers**: Filters for Hotel Type, Country, and Booking Channel for granular data exploration.
+
+## 🛠️ Technical Implementation & DAX
+During development, specific DAX challenges were addressed to ensure accurate data representation and context handling.
+
+### 1. Global Forecast Logic
+To prevent the forecast card from showing blank values (`--`), a variable-based approach was used to identify the "End of History" across the entire dataset, ignoring local row filters:
+```dax
+Total Forecasted Bookings = 
+VAR OverallLastDate = CALCULATE( MAX('Date'[Date]), ALL('Date') )
+RETURN
+CALCULATE(
+    SUM( Forecast[yhat] ),
+    Forecast[ds] > OverallLastDate
+)
+
+Avg Cancellation Rate = 
+AVERAGEX( 
+    VALUES( 'Date'[Month] ), 
+    CALCULATE( SUM( Customer[Cancelled Bookings] ) )
+)
